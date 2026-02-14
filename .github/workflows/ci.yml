@@ -11,18 +11,34 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Clonar repositorio
+      - name: 📥 Clonar repositorio
         uses: actions/checkout@v4
       
-      - name: Simular instalación de dependencias
-        run: echo "✅ Dependencias instaladas correctamente" > resultado.txt
+      - name: 📦 Simular instalación de dependencias
+        run: |
+          echo "✅ Dependencias instaladas correctamente"
+          echo "✅ Dependencias instaladas correctamente" > resultado.txt
       
-      - name: Ejecutar pruebas simuladas
+      - name: 🧪 Ejecutar pruebas simuladas
         run: |
           echo "🧪 Ejecutando pruebas unitarias..."
           echo "Test 1: Passed ✅"
           echo "Test 2: Passed ✅"
           echo "Cobertura de código: 95%"
       
-      - name: Mostrar resultado
+      - name: 📄 Mostrar resultado
         run: cat resultado.txt
+
+  # 👇 ESTE ES EL JOB QUE CREARÁ EL ENVIRONMENT
+  deploy-simulation:
+    runs-on: ubuntu-latest
+    needs: test  # Espera a que 'test' termine primero
+    environment:
+      name: practica-ci-webappio  # 👈 ESTO CREA EL ENVIRONMENT
+      url: https://github.com/${{ github.repository }}  # URL opcional
+    steps:
+      - name: 🚀 Simular despliegue en environment
+        run: |
+          echo "🌍 Desplegando en environment: practica-ci-webappio"
+          echo "✅ Simulación de despliegue completada"
+          echo "📊 Estado: Exitoso"
